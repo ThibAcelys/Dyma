@@ -13,9 +13,8 @@ class TripActivityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BUILD: TripActivityList');
-
-    final Trip trip = Provider.of<TripProvider>(context).getById(tripId);
+    final Trip trip =
+        Provider.of<TripProvider>(context, listen: false).getById(tripId);
     final List<Activity> activities = (trip.activities
         .where((activity) => activity.status == filter)).toList();
 
@@ -32,7 +31,7 @@ class TripActivityList extends StatelessWidget {
                     background: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       alignment: Alignment.centerRight,
-                      child: Icon(
+                      child: const Icon(
                         Icons.check,
                         color: Colors.white,
                       ),
@@ -51,7 +50,7 @@ class TripActivityList extends StatelessWidget {
                     onDismissed: (_) {
                       print('dismissed');
                       Provider.of<TripProvider>(context, listen: false)
-                          .setActivityToDone(activity);
+                          .upDateTrip(trip, activity.id);
                     },
                   )
                 : Card(

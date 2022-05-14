@@ -1,5 +1,6 @@
 import 'package:project/views/city/city_card.dart';
 import 'package:project/widgets/Dyma_drawer.dart';
+import 'package:project/widgets/Dyma_loader.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/city_model.dart';
@@ -19,22 +20,26 @@ class HomeView extends StatefulWidget {
 class _HomeState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    List<City> cities = Provider.of<CityProvider>(context).cities;
+    List<City> cities =
+        Provider.of<CityProvider>(context, listen: false).cities;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dymatrip'),
       ),
       drawer: const DymaDrawer(),
       body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: cities.map(
-              (city) {
-                return CityCard(city: city);
-              },
-            ).toList()),
-      ),
+          padding: const EdgeInsets.all(10),
+          child: RefreshIndicator(
+            onRefresh: Provider.of<CityProvider>(context).fetchData,
+            child: cities.length > 0
+                ? ListView.builder(
+                    itemCount: cities.length,
+                    itemBuilder: (context, i) => CityCard(
+                      city: cities[i],
+                    ),
+                  )
+                : DymaLoader(),
+          )),
     );
   }
 }

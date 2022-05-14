@@ -9,7 +9,6 @@ class TripCityBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BUILD : TripCityBar');
     return Container(
       height: 200,
       alignment: Alignment.center,
@@ -19,13 +18,13 @@ class TripCityBar extends StatelessWidget {
           Image.asset(city.image, fit: BoxFit.cover),
           Container(
             color: Colors.black12,
-            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
             child: Column(children: [
               Row(
                 children: [
                   IconButton(
-                      icon:
-                          Icon(Icons.arrow_back, size: 30, color: Colors.white),
+                      icon: const Icon(Icons.arrow_back,
+                          size: 30, color: Colors.white),
                       onPressed: () {
                         Navigator.pop(context);
                       }),
@@ -35,7 +34,7 @@ class TripCityBar extends StatelessWidget {
                   child: Center(
                       child: Text(
                 city.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

@@ -25,7 +25,7 @@ class TripActivityList extends StatelessWidget {
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   deleteTripActivity(activity.id);
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Activité supprimée'),
                     backgroundColor: Colors.red,
                     duration: Duration(seconds: 2),

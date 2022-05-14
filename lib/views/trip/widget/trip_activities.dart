@@ -9,7 +9,6 @@ class TripActivities extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BUILD : TripActivities');
     return Container(
       child: DefaultTabController(
         length: 2,
@@ -20,7 +19,7 @@ class TripActivities extends StatelessWidget {
               child: TabBar(
                   unselectedLabelColor: Colors.white54,
                   indicatorColor: Colors.deepPurple[200],
-                  tabs: [
+                  tabs: const [
                     Tab(text: 'En cours'),
                     Tab(text: 'Terminé'),
                   ]),

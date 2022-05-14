@@ -136,7 +136,7 @@ class _CityState extends State<CityView> with WidgetsBindingObserver {
     if (result == 'saved') {
       // widget.addTrip(myTrip);
       myTrip.city = cityName;
-      Provider.of<TripProvider>(context).addTrip(myTrip);
+      Provider.of<TripProvider>(context, listen: false).addTrip(myTrip);
       Navigator.pushNamed(context, HomeView.routeName);
     }
   }
@@ -144,7 +144,8 @@ class _CityState extends State<CityView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     String cityName = ModalRoute.of(context)?.settings.arguments as String;
-    City city = Provider.of<CityProvider>(context).getCityByName(cityName);
+    City city = Provider.of<CityProvider>(context, listen: false)
+        .getCityByName(cityName);
 
     return Scaffold(
       appBar: AppBar(
