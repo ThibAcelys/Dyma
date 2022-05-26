@@ -18,28 +18,72 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeState extends State<HomeView> {
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<City> cities =
-        Provider.of<CityProvider>(context, listen: false).cities;
+    CityProvider cityProvider = Provider.of<CityProvider>(context);
+
+    List<City> filteredCities =
+        cityProvider.getFilteredCities(searchController.text);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dymatrip'),
       ),
       drawer: const DymaDrawer(),
-      body: Container(
-          padding: const EdgeInsets.all(10),
-          child: RefreshIndicator(
-            onRefresh: Provider.of<CityProvider>(context).fetchData,
-            child: cities.length > 0
-                ? ListView.builder(
-                    itemCount: cities.length,
-                    itemBuilder: (context, i) => CityCard(
-                      city: cities[i],
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: searchController,
+                    decoration: const InputDecoration(
+                      hintText: 'Rechercher une ville',
+                      prefixIcon: Icon(Icons.search),
                     ),
-                  )
-                : DymaLoader(),
-          )),
+                    onChanged: (value) {
+                      setState(() {});
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() => searchController.clear());
+                  },
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: RefreshIndicator(
+                    onRefresh: Provider.of<CityProvider>(context).fetchData,
+                    child: cityProvider.isLoading
+                        ? const DymaLoader()
+                        : filteredCities.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: filteredCities.length,
+                                itemBuilder: (context, i) => CityCard(
+                                  city: filteredCities[i],
+                                ),
+                              )
+                            : const Text('Aucun résultat'))),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -39,7 +39,7 @@ class TripActivityList extends StatelessWidget {
                           color: Colors.greenAccent[700],
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    key: ValueKey(activity.id),
+                    key: UniqueKey(),
                     child: Card(
                       child: ListTile(
                         title: Text(
@@ -47,10 +47,11 @@ class TripActivityList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onDismissed: (_) {
-                      print('dismissed');
-                      Provider.of<TripProvider>(context, listen: false)
-                          .upDateTrip(trip, activity.id);
+                    confirmDismiss: (_) {
+                      return Provider.of<TripProvider>(context, listen: false)
+                          .upDateTrip(trip, activity.id)
+                          .then((_) => true)
+                          .catchError((_) => false);
                     },
                   )
                 : Card(

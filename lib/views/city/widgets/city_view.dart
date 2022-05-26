@@ -151,7 +151,10 @@ class _CityState extends State<CityView> with WidgetsBindingObserver {
       appBar: AppBar(
         title: const Text('Organisation voyage'),
         actions: const <Widget>[
-          Icon(Icons.more_vert),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => Navigator.pushNamed(context, routeName),
+          ),
         ],
       ),
       drawer: const DymaDrawer(),

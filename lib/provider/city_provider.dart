@@ -11,20 +11,29 @@ import '../model/city_model.dart';
 
 class CityProvider with ChangeNotifier {
   bool isLoading = false;
-
+  final String host = "http://10.0.2.2:3001";
   List<City> _cities = [];
 
   UnmodifiableListView<City> get cities => UnmodifiableListView(_cities);
-  final String host = "http://10.0.2.2:3001";
   City getCityByName(String cityName) =>
       cities.firstWhere((city) => city.name == cityName);
+
+  UnmodifiableListView<City> getFilteredCities(String filter) =>
+      UnmodifiableListView(
+        _cities
+            .where(
+              (city) => city.name.toLowerCase().startsWith(
+                    filter.toLowerCase(),
+                  ),
+            )
+            .toList(),
+      );
 
   Future<void> fetchData() async {
     try {
       isLoading = true;
 
       http.Response response = await http.get(Uri.parse('$host/api/cities'));
-      print(response.statusCode);
       if (response.statusCode == 200) {
         _cities = ((json.decode(response.body) as List)
             .map((cityJson) => City.fromJson(cityJson))
@@ -32,7 +41,6 @@ class CityProvider with ChangeNotifier {
         isLoading = false;
 
         notifyListeners();
-        print(json.decode(response.body));
       }
     } catch (e) {
       isLoading = false;

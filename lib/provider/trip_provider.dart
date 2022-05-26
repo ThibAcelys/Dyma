@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -54,9 +55,9 @@ class TripProvider with ChangeNotifier {
 
   Future<void> upDateTrip(Trip trip, String activityId) async {
     try {
-      trip.activities
-          .firstWhere((activity) => activity.id == activityId)
-          .status = ActivityStatus.done;
+      Activity activity =
+          trip.activities.firstWhere((activity) => activity.id == activityId);
+      activity.status = ActivityStatus.done;
 
       http.Response response = await http.put(
         Uri.parse('$host/api/trip'),
@@ -65,8 +66,11 @@ class TripProvider with ChangeNotifier {
         ),
         headers: {'Content-type': 'application/json'},
       );
-      print(trip.toJson());
-      print('avec encode : ' + json.encode(trip.toJson()));
+      if (response.statusCode != 200) {
+        activity.status = ActivityStatus.ongoing;
+        throw const HttpException('error');
+      }
+
       notifyListeners();
     } catch (e) {
       rethrow;

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../model/city_model.dart';
 import '../../../provider/city_provider.dart';
+import 'trip_weather.dart';
 
 class OneTripView extends StatelessWidget {
   static const String routeName = '/trip';
@@ -27,6 +28,7 @@ class OneTripView extends StatelessWidget {
           TripCityBar(
             city: city,
           ),
+          TripWeather(cityName: cityName),
           TripActivities(
             tripId: tripId,
           )

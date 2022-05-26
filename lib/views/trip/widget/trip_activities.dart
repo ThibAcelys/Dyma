@@ -27,7 +27,7 @@ class TripActivities extends StatelessWidget {
             Container(
               height: 600,
               child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     TripActivityList(
                       tripId: tripId,
