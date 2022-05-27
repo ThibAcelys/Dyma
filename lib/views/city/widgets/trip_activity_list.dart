@@ -17,7 +17,7 @@ class TripActivityList extends StatelessWidget {
           return Card(
             child: ListTile(
               leading: CircleAvatar(
-                  backgroundImage: AssetImage(activities[index].image)),
+                  backgroundImage: NetworkImage(activities[index].image)),
               title: Text(activities[index].name,
                   style: Theme.of(context).textTheme.titleLarge),
               subtitle: Text(activities[index].city),

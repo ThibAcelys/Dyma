@@ -150,10 +150,14 @@ class _CityState extends State<CityView> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Organisation voyage'),
-        actions: const <Widget>[
+        actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => Navigator.pushNamed(context, routeName),
+            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              '/activity-form',
+              arguments: cityName,
+            ),
           ),
         ],
       ),
@@ -163,6 +167,7 @@ class _CityState extends State<CityView> with WidgetsBindingObserver {
           context: context,
           children: <Widget>[
             TripOverview(
+                cityImage: city.image,
                 cityName: city.name,
                 setDate: setDate,
                 myTrip: myTrip,

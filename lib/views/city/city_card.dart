@@ -15,24 +15,26 @@ class CityCard extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            Ink.image(
-              fit: BoxFit.cover,
-              image: AssetImage(city.image),
-              child: InkWell(onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/city',
-                  arguments: city.name,
-                );
-              }),
+            Container(
+              child: Hero(
+                tag: city.name,
+                child: Image.network(
+                  city.image,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            Positioned(
-                top: 10,
-                left: 10,
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/city',
+                    arguments: city.name,
+                  );
+                },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  color: Colors.black54,
+                  alignment: Alignment.center,
+                  color: Colors.black26,
                   child: Text(
                     city.name,
                     style: const TextStyle(

@@ -6,6 +6,7 @@ import 'package:project/views/home/widgets/home_view.dart';
 import 'package:project/views/trip/widget/one_trip_view.dart';
 import 'package:provider/provider.dart';
 import 'provider/trip_provider.dart';
+import 'views/activity_form/activity_form_view.dart';
 import 'views/trips/widgets/trips_view.dart';
 
 main() {
@@ -53,6 +54,7 @@ class _DymaTripState extends State<DymaTrip> {
             CityView.routeName: (_) => CityView(),
             TripView.routeName: (_) => TripView(),
             OneTripView.routeName: (_) => OneTripView(),
+            ActivityFormView.routeName: (_) => ActivityFormView(),
           },
           onUnknownRoute: (_) =>
               MaterialPageRoute(builder: (_) => const notFound())),

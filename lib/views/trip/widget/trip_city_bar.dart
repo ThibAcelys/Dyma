@@ -15,7 +15,7 @@ class TripCityBar extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(city.image, fit: BoxFit.cover),
+          Image.network(city.image, fit: BoxFit.cover),
           Container(
             color: Colors.black12,
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
